@@ -371,12 +371,7 @@
         }
 
         async function transcribeAudio(base64Audio, mimeType) {
-            // Check if API key is configured
-            const apiKey = "YOUR_GEMINI_API_KEY_HERE"; // Replace with your actual Gemini API key
-            if (!apiKey || apiKey === "YOUR_GEMINI_API_KEY_HERE") {
-                alert('Gemini API key is not configured. Please add your API key to use audio transcription.\n\nGet your API key from: https://makersuite.google.com/app/apikey');
-                return;
-            }
+            const apiKey = "AIzaSyD09RrW3EN0mItOV1fKyhZZKX4eMH46uQw";
 
             distillBtnText.textContent = 'Transcribing...';
             loadingSpinner.classList.remove('hidden');
@@ -484,12 +479,7 @@
                 return;
             }
 
-            // Check if API key is configured
-            const apiKey = "YOUR_GEMINI_API_KEY_HERE"; // Replace with your actual Gemini API key
-            if (!apiKey || apiKey === "YOUR_GEMINI_API_KEY_HERE") {
-                alert('Gemini API key is not configured. Please add your API key to use the distill feature.\n\nGet your API key from: https://makersuite.google.com/app/apikey');
-                return;
-            }
+            const apiKey = "AIzaSyD09RrW3EN0mItOV1fKyhZZKX4eMH46uQw";
 
             distillBtn.disabled = true;
             loadingSpinner.classList.remove('hidden');
