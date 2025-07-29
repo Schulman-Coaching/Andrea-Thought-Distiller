@@ -193,8 +193,8 @@
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  // Initialize Firebase - moved to init() function to avoid const reassignment
+  let app, analytics;
 
         // Additional imports for the existing functionality
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
@@ -605,6 +605,7 @@
 
             try {
                 app = initializeApp(firebaseConfig);
+                analytics = getAnalytics(app);
                 db = getFirestore(app);
                 auth = getAuth(app);
                 
