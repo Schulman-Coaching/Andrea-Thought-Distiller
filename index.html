@@ -371,6 +371,13 @@
         }
 
         async function transcribeAudio(base64Audio, mimeType) {
+            // Check if API key is configured
+            const apiKey = "YOUR_GEMINI_API_KEY_HERE"; // Replace with your actual Gemini API key
+            if (!apiKey || apiKey === "YOUR_GEMINI_API_KEY_HERE") {
+                alert('Gemini API key is not configured. Please add your API key to use audio transcription.\n\nGet your API key from: https://makersuite.google.com/app/apikey');
+                return;
+            }
+
             distillBtnText.textContent = 'Transcribing...';
             loadingSpinner.classList.remove('hidden');
             distillBtn.disabled = true;
@@ -389,7 +396,7 @@
                         }
                     ],
                 };
-                const apiKey = "";
+                const apiKey = "YOUR_GEMINI_API_KEY_HERE"; // Replace with your actual Gemini API key
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
@@ -477,6 +484,13 @@
                 return;
             }
 
+            // Check if API key is configured
+            const apiKey = "YOUR_GEMINI_API_KEY_HERE"; // Replace with your actual Gemini API key
+            if (!apiKey || apiKey === "YOUR_GEMINI_API_KEY_HERE") {
+                alert('Gemini API key is not configured. Please add your API key to use the distill feature.\n\nGet your API key from: https://makersuite.google.com/app/apikey');
+                return;
+            }
+
             distillBtn.disabled = true;
             loadingSpinner.classList.remove('hidden');
             distillBtnText.textContent = 'Analyzing...';
@@ -510,7 +524,7 @@
                         }
                     }
                 };
-                const apiKey = "";
+                const apiKey = "YOUR_GEMINI_API_KEY_HERE"; // Replace with your actual Gemini API key
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 
                 const response = await fetch(apiUrl, {
@@ -625,7 +639,21 @@
 
             } catch (error) {
                 console.error("Firebase Initialization Error:", error);
-                authStatusEl.textContent = 'Error connecting to services.';
+                
+                // More detailed error handling
+                if (error.code === 'auth/network-request-failed') {
+                    authStatusEl.textContent = 'Network error. Please check your internet connection.';
+                } else if (error.code === 'auth/invalid-api-key') {
+                    authStatusEl.textContent = 'Invalid Firebase API key. Please check configuration.';
+                } else if (error.message && error.message.includes('fetch')) {
+                    authStatusEl.textContent = 'Connection failed. Try refreshing the page or check if you\'re online.';
+                } else {
+                    authStatusEl.textContent = `Error connecting to services: ${error.message || 'Unknown error'}`;
+                }
+                
+                // Show the app container even if Firebase fails, so users can still use basic functionality
+                document.getElementById('app-container').style.display = 'flex';
+                renderCalendar();
             }
         }
         
